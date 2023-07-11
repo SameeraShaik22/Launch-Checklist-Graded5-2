@@ -3,8 +3,8 @@ require('isomorphic-fetch');
 
 function addDestinationInfo(document, name, diameter, star, distance, moons, imageUrl) {
    // Here is the HTML formatting for our mission target div.
-   
-             `<h2>Mission Destination</h2>
+   let missionTarget=document.getElementById("missionTarget")
+   missionTarget.innerHTML=`<h2>Mission Destination</h2>
                 <ol>
                     <li>Name:${name} </li>
                     <li>Diameter:${diameter} </li>
@@ -78,16 +78,17 @@ if(validateInput(pilot)==="Empty"||validateInput(copilot)==="Empty"||validateInp
 async function myFetch() {
     let planetsReturned;
 
-    planetsReturned = await fetch().then( function(response) {
-   
+    planetsReturned = await fetch("https://handlers.education.launchcode.org/static/planets.json").then( function(response) {
+    return response.json()
   });
 
     return planetsReturned;
 }
 
 function pickPlanet(planets) {
-  
-}
+  let allPlanets = Math.floor(Math.random() * planets.length);
+  return planets[allPlanets];
+ }
 
 module.exports.addDestinationInfo = addDestinationInfo;
 module.exports.validateInput = validateInput;
